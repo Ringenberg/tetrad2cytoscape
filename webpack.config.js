@@ -51,6 +51,12 @@ module.exports = [{
       inject: 'head',
       inlineSource: '.(js|css)$',
       template: 'src/html/TETRADGrapher.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../docs/index.html',
+      inject: 'head',
+      inlineSource: '.(js|css)$',
+      template: 'src/html/TETRADGrapher.html'
     })
   ]
 }]
