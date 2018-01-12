@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph>
+  <variables>
+    <variable>X1</variable>
+    <variable>X2</variable>
+    <variable>X3</variable>
+    <variable>X4</variable>
+    <variable>X5</variable>
+    <variable>X6</variable>
+    <variable>X7</variable>
+    <variable>X8</variable>
+    <variable>X9</variable>
+    <variable>X10</variable>
+  </variables>
+  <edges>
+    <edge>X1 --&gt; X8</edge>
+    <edge>X3 --&gt; X6</edge>
+    <edge>X4 --&gt; X9</edge>
+    <edge>X3 --&gt; X9</edge>
+    <edge>X1 --&gt; X10</edge>
+    <edge>X1 --&gt; X4</edge>
+    <edge>X5 --&gt; X10</edge>
+    <edge>X6 --&gt; X9</edge>
+    <edge>X2 --&gt; X3</edge>
+    <edge>X4 --&gt; X5</edge>
+  </edges>
+</graph>

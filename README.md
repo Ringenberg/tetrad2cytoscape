@@ -11,3 +11,5 @@ of the [Center for Causal Discovery](https://www.ccd.pitt.edu/).
 
 A running copy of the online version of this tool can be found at
 https://ringenberg.github.io/tetrad2cytoscape/
+
+An example graph from TETRAD can be found [here](./examples/random_10_node_graph.xml).
