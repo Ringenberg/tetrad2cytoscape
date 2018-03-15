@@ -4,8 +4,10 @@
   "description": "Tools for converting TETRAD graphs to Cytoscape graphs or pretty images.",
   "main": "TETRADGrapher.html",
   "scripts": {
-    "build": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack -p --mode production",
+    "build_dev": "webpack --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "jshint src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -21,21 +23,25 @@
   "bugs": {
     "url": "https://github.com/Ringenberg/tetrad2cytoscape/issues"
   },
+  "jshintConfig": {
+    "esversion": 6
+  },
   "homepage": "https://github.com/Ringenberg/tetrad2cytoscape#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "css-loader": "^0.28.8",
-    "cytoscape": "^3.2.7",
+    "@babel/core": "^7.0.0-beta.41",
+    "@babel/preset-env": "^7.0.0-beta.41",
+    "babel-loader": "^7.1.4",
+    "css-loader": "^0.28.10",
+    "cytoscape": "^3.2.9",
     "cytoscape-context-menus": "^3.0.5",
-    "html-webpack-inline-source-plugin": "0.0.9",
-    "html-webpack-plugin": "^2.30.1",
-    "jquery": "^3.2.1",
+    "html-webpack-inline-source-plugin": "0.0.10",
+    "html-webpack-plugin": "^3.0.6",
+    "jquery": "^3.3.1",
     "jshint": "^2.9.5",
-    "jshint-loader": "^0.8.4",
-    "postcss-loader": "^2.0.10",
-    "style-loader": "^0.19.1",
-    "webpack": "^3.10.0"
+    "postcss-loader": "^2.1.1",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
   },
   "dependencies": {}
 }
