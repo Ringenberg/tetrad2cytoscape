@@ -7,6 +7,9 @@ import ccmccs from 'cytoscape-context-menus/cytoscape-context-menus.css';
 
 contextMenus(cytoscape, $);
 
+/**
+ * Module level storage of the cytoscape graph
+ */
 var graph;
 
 /**
@@ -17,9 +20,7 @@ function handleFileUpload(ev) {
   var files = ev.target.files;
   graph.elements().remove(); // clear cytoscape graph
   Array.prototype.forEach.call(files, function (file) {
-    //console.log(file,'is',file.type);
     if (file.type.match('text/xml')) { // only xml files
-      //console.log(file,'as xml');
       var reader = new FileReader();
       reader.onload = (function (xfile) {
 	return function (e) {
@@ -72,17 +73,14 @@ function handleFileUpload(ev) {
       })(file);
       reader.readAsText(file);
     } else if (file.type.match('application/json')) { // or json
-      //console.log(file,'as json');
       var jreader = new FileReader();
       jreader.onload = (function () {
         return function (e) {
-          //console.log(e.target.result);
           var json = JSON.parse(e.target.result);
           var lopt = json.layout;
           lopt.position = function(n) {
 	    return {row: n.data('row') , col: n.data('column')};
 	  };
-          //json.elements.forEach(function(n) { console.log(n); graph.add(n); });
           graph.add(json.elements);
           graph.layout(lopt).run();
         };
@@ -94,8 +92,14 @@ function handleFileUpload(ev) {
   });
 }
 
+/**
+ * OnLoad initialize the cytoscape graph and add event handlers to the buttons
+ */
 $(function () {
+  // add file upload handler.
   $('#tetradxml').on('change', handleFileUpload);
+
+  // initialize cytoscape graph.
   graph = cytoscape({
     container: $('#graph'),
     selectionType: 'additive',
@@ -159,6 +163,7 @@ $(function () {
                'source-arrow-shape': 'none'
              }} ]
   });
+  // Add context menu for toggling between standard and latent variables.
   graph.contextMenus(
     {
       menuItems: [
@@ -176,7 +181,9 @@ $(function () {
       ]
     }
   );
-  window.cytograph = graph;
+  //window.cytograph = graph; // this was used for debugging
+
+  // Add event handlers for the output generation buttons.
   $('#out_png').on('click', function () {
     $('#image_png').attr('src', graph.png());
   });
