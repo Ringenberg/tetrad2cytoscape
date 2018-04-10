@@ -9,7 +9,7 @@ module.exports = [{
     TETRADGrapher: ['./src/js/TETRADGrapher.js']
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'docs'),
     filename: '[name].bundle.js',
     publicPath: ''
   },
@@ -33,7 +33,7 @@ module.exports = [{
           //"postcss-loader"
         ]
       },
-      {
+      /*{
         test: /\.js$/,
         enforce: "pre",
         exclude: /node_modules/,
@@ -41,22 +41,22 @@ module.exports = [{
         options: {
           esversion: 6
         }
-      }
+      }*/
     ]
   },
   plugins: [
-    new HtmlWebpackInlineSourcePlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'TETRADGrapher.html',
-      inject: 'head',
-      inlineSource: '.(js|css)$',
-      template: 'src/html/TETRADGrapher.html'
-    }),
     new HtmlWebpackPlugin({
       filename: '../docs/index.html',
       inject: 'head',
       inlineSource: '.(js|css)$',
       template: 'src/html/TETRADGrapher.html'
-    })
+    }),
+    new HtmlWebpackInlineSourcePlugin()
+    /*new HtmlWebpackPlugin({
+      filename: 'TETRADGrapher.html',
+      inject: 'head',
+      inlineSource: '.(js|css)$',
+      template: 'src/html/TETRADGrapher.html'
+    }),*/
   ]
 }]
