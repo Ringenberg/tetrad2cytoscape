@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 module.exports = [{
   bail: true,
@@ -45,18 +45,18 @@ module.exports = [{
     ]
   },
   plugins: [
-    //new HtmlWebpackInlineSourcePlugin(),
+    new HtmlWebpackPlugin({
+      filename: '../docs/index.html',
+      inject: 'head',
+      inlineSource: '.(js|css)$',
+      template: 'src/html/TETRADGrapher.html'
+    }),
+    new HtmlWebpackInlineSourcePlugin()
     /*new HtmlWebpackPlugin({
       filename: 'TETRADGrapher.html',
       inject: 'head',
       inlineSource: '.(js|css)$',
       template: 'src/html/TETRADGrapher.html'
     }),*/
-    new HtmlWebpackPlugin({
-      filename: '../docs/index.html',
-      inject: 'head',
-      inlineSource: '.(js|css)$',
-      template: 'src/html/TETRADGrapher.html'
-    })
   ]
 }]

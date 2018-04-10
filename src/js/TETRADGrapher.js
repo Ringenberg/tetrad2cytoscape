@@ -1,3 +1,5 @@
+/** @overview Online tool for converting TETRAD graphs into images or json */
+/** @module */
 import $ from 'jquery';
 import cytoscape from 'cytoscape';
 import contextMenus from 'cytoscape-context-menus';
@@ -7,9 +9,13 @@ contextMenus(cytoscape, $);
 
 var graph;
 
+/**
+ * Event handler for loading a TETRAD exported xml file into a cytoscape graph.
+ * @param {Event} ev - the load event that has the contents of the file.
+ */
 function handleFileUpload(ev) {
   var files = ev.target.files;
-  graph.elements().remove();
+  graph.elements().remove(); // clear cytoscape graph
   Array.prototype.forEach.call(files, function (file) {
     //console.log(file,'is',file.type);
     if (file.type.match('text/xml')) { // only xml files
@@ -18,10 +24,12 @@ function handleFileUpload(ev) {
       reader.onload = (function (xfile) {
 	return function (e) {
 	  var $xml = $($.parseXML(e.target.result));
+	  // Find all the nodes.
 	  $xml.find('variable').each(function () {
 	    graph.add({group: "nodes",
 		       data: {id: $(this).text()}});
 	  });
+	  // Find all the edges
 	  $xml.find('edge').each(function () {
 	    var edge = $(this).text();
 	    if (edge.includes('-->')) {
