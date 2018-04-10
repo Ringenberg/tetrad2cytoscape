@@ -52,11 +52,5 @@ module.exports = [{
       template: 'src/html/TETRADGrapher.html'
     }),
     new HtmlWebpackInlineSourcePlugin()
-    /*new HtmlWebpackPlugin({
-      filename: 'TETRADGrapher.html',
-      inject: 'head',
-      inlineSource: '.(js|css)$',
-      template: 'src/html/TETRADGrapher.html'
-    }),*/
   ]
 }]
