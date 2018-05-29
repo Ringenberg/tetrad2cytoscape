@@ -32,16 +32,7 @@ module.exports = [{
           "css-loader"//,
           //"postcss-loader"
         ]
-      },
-      /*{
-        test: /\.js$/,
-        enforce: "pre",
-        exclude: /node_modules/,
-        loader: "jshint-loader",
-        options: {
-          esversion: 6
-        }
-      }*/
+      }
     ]
   },
   plugins: [
