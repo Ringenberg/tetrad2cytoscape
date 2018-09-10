@@ -23,53 +23,53 @@ function handleFileUpload(ev) {
     if (file.type.match('text/xml')) { // only xml files
       var reader = new FileReader();
       reader.onload = (function (xfile) {
-	return function (e) {
-	  var $xml = $($.parseXML(e.target.result));
-	  // Find all the nodes.
-	  $xml.find('variable').each(function () {
-	    graph.add({group: "nodes",
-		       data: {id: $(this).text()}});
-	  });
-	  // Find all the edges
-	  $xml.find('edge').each(function () {
-	    var edge = $(this).text();
-	    if (edge.includes('-->')) {
-	      var st = edge.split(' --> ');
-	      graph.add({group: "edges",
-			 data: {id: $(this).text(),
-				source: st[0],
-				target: st[1]}});
-	    }
-	    if (edge.includes('o-o')) {
-	      var oo = edge.split(' o-o ');
-	      graph.add({group: "edges",
-			 data: {id: edge, source: oo[0],
-				target: oo[1]},
-			 classes: "doublecircle"});
-	    }
-	    if (edge.includes('o->')) {
-	      var ol = edge.split(' o-> ');
-	      graph.add({group: "edges",
-			 data: {id: edge, source: ol[0],
-				target: ol[1]},
-			 classes: "circlearrow"});
-	    }
-	    if (edge.includes('<->')) {
-	      var aa = edge.split(' <-> ');
-	      graph.add({group: "edges",
-			 data: {id: edge, source: aa[0],
-				target: aa[1]},
-			 classes: "doublearrow"});
-	    }
-	  });
-	  var layout = graph.elements().layout({
-	    name:'circle',
-	    padding:10,
-	    radius: 125,
-	    fit: false,
-	    avoidOverlap: false});
-	  layout.run();
-	};
+        return function (e) {
+          var $xml = $($.parseXML(e.target.result));
+          // Find all the nodes.
+          $xml.find('variable').each(function () {
+            graph.add({group: "nodes",
+                       data: {id: $(this).text()}});
+          });
+          // Find all the edges
+          $xml.find('edge').each(function () {
+            var edge = $(this).text();
+            if (edge.includes('-->')) {
+              var st = edge.split(' --> ');
+              graph.add({group: "edges",
+                         data: {id: $(this).text(),
+                                source: st[0],
+                                target: st[1]}});
+            }
+            if (edge.includes('o-o')) {
+              var oo = edge.split(' o-o ');
+              graph.add({group: "edges",
+                         data: {id: edge, source: oo[0],
+                                target: oo[1]},
+                         classes: "doublecircle"});
+            }
+            if (edge.includes('o->')) {
+              var ol = edge.split(' o-> ');
+              graph.add({group: "edges",
+                         data: {id: edge, source: ol[0],
+                                target: ol[1]},
+                         classes: "circlearrow"});
+            }
+            if (edge.includes('<->')) {
+              var aa = edge.split(' <-> ');
+              graph.add({group: "edges",
+                         data: {id: edge, source: aa[0],
+                                target: aa[1]},
+                         classes: "doublearrow"});
+            }
+          });
+          var layout = graph.elements().layout({
+            name:'circle',
+            padding:10,
+            radius: 125,
+            fit: false,
+            avoidOverlap: false});
+          layout.run();
+        };
       })(file);
       reader.readAsText(file);
     } else if (file.type.match('application/json')) { // or json
@@ -79,8 +79,8 @@ function handleFileUpload(ev) {
           var json = JSON.parse(e.target.result);
           var lopt = json.layout;
           lopt.position = function(n) {
-	    return {row: n.data('row') , col: n.data('column')};
-	  };
+            return {row: n.data('row') , col: n.data('column')};
+          };
           graph.add(json.elements);
           graph.layout(lopt).run();
         };
@@ -124,7 +124,7 @@ $(function () {
             },
             {selector: 'edge',
              style: {
-	       'arrow-scale': 2,
+               'arrow-scale': 2,
                'width': 3,
                'line-color': 'blue',
                'target-arrow-shape' : 'triangle',
@@ -167,17 +167,17 @@ $(function () {
   graph.contextMenus(
     {
       menuItems: [
-	{
-	  id: 'latent',
-	  content: 'Toggle Normal/Latent',
-	  selector: 'node',
-	  onClickFunction: function (ev) {
-	    ev.target.toggleClass('latent');
-	  },
-	  show: true,
-	  disabled: false,
-	  coreAsWell: false
-	}
+        {
+          id: 'latent',
+          content: 'Toggle Normal/Latent',
+          selector: 'node',
+          onClickFunction: function (ev) {
+            ev.target.toggleClass('latent');
+          },
+          show: true,
+          disabled: false,
+          coreAsWell: false
+        }
       ]
     }
   );
