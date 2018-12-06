@@ -3,7 +3,8 @@
 import $ from 'jquery';
 import cytoscape from 'cytoscape';
 import contextMenus from 'cytoscape-context-menus';
-import ccmccs from 'cytoscape-context-menus/cytoscape-context-menus.css';
+//import ccmccs from 'cytoscape-context-menus/cytoscape-context-menus.css';
+import 'cytoscape-context-menus/cytoscape-context-menus.css';
 
 contextMenus(cytoscape, $);
 
@@ -22,7 +23,8 @@ function handleFileUpload(ev) {
   Array.prototype.forEach.call(files, function (file) {
     if (file.type.match('text/xml')) { // only xml files
       var reader = new FileReader();
-      reader.onload = (function (xfile) {
+      //reader.onload = (function (xfile) {
+      reader.onload = (function () {
         return function (e) {
           var $xml = $($.parseXML(e.target.result));
           // Find all the nodes.
@@ -87,7 +89,8 @@ function handleFileUpload(ev) {
       })(file);
       jreader.readAsText(file);
     } else {
-      console.log(file,'as unknown');
+      //TODO: add custom message handler
+      alert('File must be xml or json');
     }
   });
 }
