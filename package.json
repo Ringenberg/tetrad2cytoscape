@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/Ringenberg/tetrad2cytoscape#readme",
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
-    "cytoscape": "^3.9.1",
+    "cytoscape": "^3.10.0",
     "cytoscape-context-menus": "^3.0.6",
     "eslint": "^6.3.0",
     "html-webpack-inline-source-plugin": "0.0.10",
@@ -41,7 +41,7 @@
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.8"
   },
   "dependencies": {}
 }
