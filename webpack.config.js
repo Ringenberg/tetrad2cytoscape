@@ -16,6 +16,10 @@ module.exports = [{
   target: 'web',
   module: {
     rules: [
+      {
+        test: /\.gif$/,
+        loader: 'url-loader'
+      },
       /*{
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000'
@@ -31,6 +35,22 @@ module.exports = [{
           "style-loader",
           "css-loader"//,
           //"postcss-loader"
+        ]
+      },
+      {
+        test: /\.(scss)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: function () {
+                return [ require('autoprefixer') ];
+              }
+            }
+          },
+          'sass-loader'
         ]
       }
     ]

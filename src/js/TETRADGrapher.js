@@ -1,9 +1,12 @@
 /** @overview Online tool for converting TETRAD graphs into images or json */
 /** @module */
 import $ from 'jquery';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-fileinput';
+import 'bootstrap-fileinput/css/fileinput.min.css';
 import cytoscape from 'cytoscape';
 import contextMenus from 'cytoscape-context-menus';
-//import ccmccs from 'cytoscape-context-menus/cytoscape-context-menus.css';
 import 'cytoscape-context-menus/cytoscape-context-menus.css';
 
 contextMenus(cytoscape, $);
@@ -101,6 +104,7 @@ function handleFileUpload(ev) {
 $(function () {
   // add file upload handler.
   $('#tetradxml').on('change', handleFileUpload);
+  $('#tetradxml').on('fileclear', ev => graph.elements().remove());
 
   // initialize cytoscape graph.
   graph = cytoscape({
