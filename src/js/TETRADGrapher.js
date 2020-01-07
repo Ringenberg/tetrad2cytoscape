@@ -20,82 +20,77 @@ var graph;
  * Event handler for loading a TETRAD exported xml file into a cytoscape graph.
  * @param {Event} ev - the load event that has the contents of the file.
  */
-function handleFileUpload(ev) {
-  var files = ev.target.files;
+function handleFileUpload(ev, file, previewId, index, reader) {
   graph.elements().remove(); // clear cytoscape graph
-  Array.prototype.forEach.call(files, function (file) {
-    if (file.type.match('text/xml')) { // only xml files
-      var reader = new FileReader();
-      //reader.onload = (function (xfile) {
-      reader.onload = (function () {
-        return function (e) {
-          var $xml = $($.parseXML(e.target.result));
-          // Find all the nodes.
-          $xml.find('variable').each(function () {
-            graph.add({group: "nodes",
-                       data: {id: $(this).text()}});
-          });
-          // Find all the edges
-          $xml.find('edge').each(function () {
-            var edge = $(this).text();
-            if (edge.includes('-->')) {
-              var st = edge.split(' --> ');
-              graph.add({group: "edges",
-                         data: {id: $(this).text(),
-                                source: st[0],
-                                target: st[1]}});
-            }
-            if (edge.includes('o-o')) {
-              var oo = edge.split(' o-o ');
-              graph.add({group: "edges",
-                         data: {id: edge, source: oo[0],
-                                target: oo[1]},
-                         classes: "doublecircle"});
-            }
-            if (edge.includes('o->')) {
-              var ol = edge.split(' o-> ');
-              graph.add({group: "edges",
-                         data: {id: edge, source: ol[0],
-                                target: ol[1]},
-                         classes: "circlearrow"});
-            }
-            if (edge.includes('<->')) {
-              var aa = edge.split(' <-> ');
-              graph.add({group: "edges",
-                         data: {id: edge, source: aa[0],
-                                target: aa[1]},
-                         classes: "doublearrow"});
-            }
-          });
-          var layout = graph.elements().layout({
-            name:'circle',
-            padding:10,
-            radius: 125,
-            fit: false,
-            avoidOverlap: false});
-          layout.run();
+  if (file.type.match('text/xml')) { // only xml files
+    //var reader = new FileReader();
+    reader.onload = (function () {
+      return function (e) {
+        var $xml = $($.parseXML(e.target.result));
+        // Find all the nodes.
+        $xml.find('variable').each(function () {
+          graph.add({group: "nodes",
+                     data: {id: $(this).text()}});
+        });
+        // Find all the edges
+        $xml.find('edge').each(function () {
+          var edge = $(this).text();
+          if (edge.includes('-->')) {
+            var st = edge.split(' --> ');
+            graph.add({group: "edges",
+                       data: {id: $(this).text(),
+                              source: st[0],
+                              target: st[1]}});
+          }
+          if (edge.includes('o-o')) {
+            var oo = edge.split(' o-o ');
+            graph.add({group: "edges",
+                       data: {id: edge, source: oo[0],
+                              target: oo[1]},
+                       classes: "doublecircle"});
+          }
+          if (edge.includes('o->')) {
+            var ol = edge.split(' o-> ');
+            graph.add({group: "edges",
+                       data: {id: edge, source: ol[0],
+                              target: ol[1]},
+                       classes: "circlearrow"});
+          }
+          if (edge.includes('<->')) {
+            var aa = edge.split(' <-> ');
+            graph.add({group: "edges",
+                       data: {id: edge, source: aa[0],
+                              target: aa[1]},
+                       classes: "doublearrow"});
+          }
+        });
+        var layout = graph.elements().layout({
+          name:'circle',
+          padding:10,
+          radius: 125,
+          fit: false,
+          avoidOverlap: false});
+        layout.run();
+      };
+    })(file);
+    reader.readAsText(file);
+  } else if (file.type.match('application/json')) { // or json
+    reader.onload = (function () {
+      return function (e) {
+        var json = JSON.parse(e.target.result);
+        var lopt = json.layout;
+        lopt.position = function(n) {
+          return {row: n.data('row') , col: n.data('column')};
         };
-      })(file);
-      reader.readAsText(file);
-    } else if (file.type.match('application/json')) { // or json
-      var jreader = new FileReader();
-      jreader.onload = (function () {
-        return function (e) {
-          var json = JSON.parse(e.target.result);
-          var lopt = json.layout;
-          lopt.position = function(n) {
-            return {row: n.data('row') , col: n.data('column')};
-          };
-          graph.add(json.elements);
-          graph.layout(lopt).run();
-        };
-      })(file);
-      jreader.readAsText(file);
-    } else {
-      //TODO: add custom message handler
-      alert('File must be xml or json');
-    }
-  });
+        graph.add(json.elements);
+        graph.layout(lopt).run();
+      };
+    })(file);
+    jreader.readAsText(file);
+  } else {
+    //TODO: add custom message handler
+    alert('File must be xml or json');
+  }
 }
 
 /**
@@ -103,7 +98,7 @@ function handleFileUpload(ev) {
  */
 $(function () {
   // add file upload handler.
-  $('#tetradxml').on('change', handleFileUpload);
+  $('#tetradxml').on('fileloaded', handleFileUpload);
   $('#tetradxml').on('fileclear', ev => graph.elements().remove());
 
   // initialize cytoscape graph.
