@@ -12,6 +12,16 @@
   }
   </style>
   <title>TETRAD Image Converter</title>
+  <% for (cssFile of htmlWebpackPlugin.files.css) { %>
+  <style>
+    <%= compilation.assets[cssFile.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+  </style>
+  <% } %>
+  <% for (jsFile of htmlWebpackPlugin.files.js) { %>
+  <script>
+  <%= compilation.assets[jsFile.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+  </script>
+  <% } %>
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-light bg-primary">

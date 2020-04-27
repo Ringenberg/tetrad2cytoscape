@@ -1,7 +1,6 @@
 //const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 module.exports = [{
   bail: true,
@@ -58,10 +57,8 @@ module.exports = [{
   plugins: [
     new HtmlWebpackPlugin({
       filename: '../docs/index.html',
-      inject: 'head',
-      inlineSource: '.(js|css)$',
-      template: 'src/html/TETRADGrapher.html'
-    }),
-    new HtmlWebpackInlineSourcePlugin()
+      inject: false,
+      template: 'src/html/TETRADGrapher.ejs'
+    })
   ]
 }]
