@@ -1,5 +1,6 @@
 /** @overview Online tool for converting TETRAD graphs into images or json */
 /** @module */
+/* eslint-disable no-warning-comments */
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,7 +21,7 @@ var graph;
  * Event handler for loading a TETRAD exported xml file into a cytoscape graph.
  * @param {Event} ev - the load event that has the contents of the file.
  */
-function handleFileUpload(ev, file, previewId, index, reader) {
+function handleFileUpload(ev, file, previewId, index, reader) { // eslint-disable-line max-params
   graph.elements().remove(); // clear cytoscape graph
   if (file.type.match('text/xml')) { // only xml files
     //var reader = new FileReader();
@@ -86,10 +87,10 @@ function handleFileUpload(ev, file, previewId, index, reader) {
         graph.layout(lopt).run();
       };
     })(file);
-    jreader.readAsText(file);
+    reader.readAsText(file);
   } else {
-    //TODO: add custom message handler
-    alert('File must be xml or json');
+    // TODO: add custom message handler
+    alert('File must be xml or json'); // eslint-disable-line no-alert
   }
 }
 
@@ -99,7 +100,7 @@ function handleFileUpload(ev, file, previewId, index, reader) {
 $(function () {
   // add file upload handler.
   $('#tetradxml').on('fileloaded', handleFileUpload);
-  $('#tetradxml').on('fileclear', ev => graph.elements().remove());
+  $('#tetradxml').on('fileclear', () => graph.elements().remove());
 
   // initialize cytoscape graph.
   graph = cytoscape({
