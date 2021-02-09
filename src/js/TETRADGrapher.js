@@ -21,7 +21,7 @@ var graph;
  * Event handler for loading a TETRAD exported xml file into a cytoscape graph.
  * @param {Event} ev - the load event that has the contents of the file.
  */
-function handleFileUpload(ev, file, previewId, index, reader) { // eslint-disable-line max-params
+function handleFileUpload(ev, file, previewId, fileId, index, reader) { // eslint-disable-line max-params
   graph.elements().remove(); // clear cytoscape graph
   if (file.type.match('text/xml')) { // only xml files
     //var reader = new FileReader();
@@ -115,8 +115,8 @@ $(function () {
                'border-width' : '1px',
                'border-style' : 'solid',
                'border-color' : 'grey',
-               'width': 'label',
-               'height': 'label',
+               // 'width': 'label',
+               // 'height': 'label',
                'padding': 5
              }},
             {selector: 'node:selected',
